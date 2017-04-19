@@ -41,7 +41,7 @@
                                                 <li><a href="features.html" class="close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Account</span></a></li>
                                                 <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Messages</span><strong class="green">12</strong></a></li>
                                                 <li><a href="features.html" class="close-panel"><img src="images/icons/white/download.png" alt="" title="" /><span>Downloads</span><strong class="blue">5</strong></a></li>-->
-                        <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Salir</span></a></li>
+                        <li><a href="#" id="btnSalir" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Salir</span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -161,7 +161,6 @@
                         url: "http://www.pycsolutions.com/aofintranet/Appmovil/Login?dni=" + dni + "&clave=" + clave,
                         type: "GET",
                         dataType: 'json',
-                        data: new FormData(this),
                         contentType: false,
                         cache: false,
                         processData: false,
@@ -171,20 +170,24 @@
                         },
                         success: function (data)
                         {
-                            console.log(data);
                             if (data != null) {
                                 $("#txtNombreUsuario").text(data.nombres)
-                                $$("#btnLoginClose").click();                                
-                            }else{
+                                $$("#btnLoginClose").click();
+                            } else {
                                 myApp.alert('Usuario o contraseña incorrectos', 'Hubo un error!');
                             }
                         },
                         error: function (e)
                         {
-                            alert("Error");
+                            myApp.alert('Revise su conexion a internet', 'Hubo un error!');
                         }
                     });
                 }));
+
+                $("#btnSalir").click(function () {
+                    navigator.app.exitApp();
+                });
+
                 login = 1;
             } else
             if (login == 1) {
