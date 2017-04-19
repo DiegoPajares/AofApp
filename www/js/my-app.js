@@ -77,6 +77,38 @@ myApp.onPageInit('asistencia', function (page) {
                     //"Cancelado: " + result.cancelled);
                     $("#txtDniMarcacion").val(result.text);
                     dni = result.text;
+                    $.ajax({
+                        url: "http://www.pycsolutions.com/aofintranet/Appmovil/Asistencia/insertaasistencia?idasistencia=" + idAsistencia + "&dni=" + dni,
+//            url: "http://localhost/IntranetAof/Appmovil/Asistencia/insertaasistencia?idasistencia=" + idAsistencia + "&dni=" + dni,
+                        type: "GET",
+                        dataType: 'json',
+                        beforeSend: function ()
+                        {
+//                            $.LoadingOverlay("show");
+                        },
+                        success: function (data)
+                        {
+
+                            if (data != null) {
+                                if (data == 0) {
+                                    myApp.alert('DNI incorrecto o no tiene asignación.', 'Hubo un error!');
+                                    $("#txtDniMarcacion").val(null);
+                                } else if (data == 2) {
+                                    myApp.alert('Ya se ha registrado la asistencia del trabajador anteriormente.', 'Hubo un error!');
+                                    $("#txtDniMarcacion").val(null);
+                                } else if (data == 1) {
+                                    myApp.alert('Asistencia registrada.', 'Exito!');
+                                    $("#txtDniMarcacion").val(null);
+                                }
+                            } else {
+                                myApp.alert('Vuelva a intentar...', 'Hubo un error!');
+                            }
+                        },
+                        error: function (e)
+                        {
+                            myApp.alert('Revise su conexion a internet', 'Hubo un error!');
+                        }
+                    });
                 },
                 function (error) {
                     alert("Error de lectura: " + error);
@@ -84,43 +116,6 @@ myApp.onPageInit('asistencia', function (page) {
                 }
         );
         console.log("ready");
-    });
-
-    $("#btnRegistrar").click(function () {
-        dni = $("#txtDniMarcacion").val();
-
-        $.ajax({
-            url: "http://www.pycsolutions.com/aofintranet/Appmovil/Asistencia/insertaasistencia?idasistencia=" + idAsistencia + "&dni=" + dni,
-//            url: "http://localhost/IntranetAof/Appmovil/Asistencia/insertaasistencia?idasistencia=" + idAsistencia + "&dni=" + dni,
-            type: "GET",
-            dataType: 'json',
-            beforeSend: function ()
-            {
-//                            $.LoadingOverlay("show");
-            },
-            success: function (data)
-            {
-
-                if (data != null) {
-                    if (data == 0) {
-                        myApp.alert('DNI incorrecto o no tiene asignación.', 'Hubo un error!');
-                        $("#txtDniMarcacion").val(null);
-                    } else if (data == 2) {
-                        myApp.alert('Ya se ha registrado la asistencia del trabajador anteriormente.', 'Hubo un error!');
-                        $("#txtDniMarcacion").val(null);
-                    } else if (data == 1) {
-                        myApp.alert('Asistencia registrada.', 'Exito!');
-                        $("#txtDniMarcacion").val(null);
-                    }
-                } else {
-                    myApp.alert('Vuelva a intentar...', 'Hubo un error!');
-                }
-            },
-            error: function (e)
-            {
-                myApp.alert('Revise su conexion a internet', 'Hubo un error!');
-            }
-        });
     });
 
 });
