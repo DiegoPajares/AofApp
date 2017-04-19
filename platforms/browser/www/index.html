@@ -121,19 +121,16 @@
                 <div class="form_logo"><img src="images/logoAof.png" alt="" title="" /></div>
                 <div class="loginform">
                     <form id="frmLogin" name="frmLogin" method="post">
-                        <input type="number" name="dni" value="" class="form_input required" placeholder="Nro de DNI" />
-                        <input type="password" name="clave" value="" class="form_input required" placeholder="Contraseña" />
+                        <input type="number" name="dni" id="txtDni" value="" class="form_input required" placeholder="Nro de DNI" />
+                        <input type="password" name="clave" id="txtClave" value="" class="form_input required" placeholder="Contraseña" />
                         <input type="submit" name="submit" class="form_submit" id="submit" value="ENTRAR" />
-                    </form>                    
+                    </form>
                 </div>
                 <div style="display: none;" class="close_loginpopup_button"><a href="#" class="close-popup" id="btnLoginClose"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
             </div>
         </div>
 
 
-        <script type="text/javascript">
-            var login = 0;
-        </script>
         <script type="text/javascript" src="cordova.js"></script>
 
         <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
@@ -145,14 +142,23 @@
 
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
+
+            var login = 0;
+            var myApp = new Framework7();
+            var $$ = Dom7;
             app.initialize();
+
             if (login == 0) {
                 $$("#btnLogin").click();
 
                 $('#frmLogin').on('submit', (function (e) {
+
+                    var dni = $("#txtDni").val();
+                    var clave = $("#txtClave").val();
+
                     e.preventDefault();
                     $.ajax({
-                        url: "http://www.pycsolutions.com/aofintranet/Appmovil/Login",
+                        url: "http://www.pycsolutions.com/aofintranet/Appmovil/Login?dni=" + dni + "&clave=" + clave,
                         type: "GET",
                         dataType: 'json',
                         data: new FormData(this),
@@ -164,13 +170,13 @@
 //                            $.LoadingOverlay("show");
                         },
                         success: function (data)
-                        {                            
-                            if (data != 0 || data != null) {
-//                                console.log(data);
+                        {
+                            console.log(data);
+                            if (data != null) {
                                 $("#txtNombreUsuario").text(data.nombres)
-                                $$("#btnLoginClose").click();
+                                $$("#btnLoginClose").click();                                
                             }else{
-                                alert("Error al inciar sesión.");
+                                myApp.alert('Usuario o contraseña incorrectos', 'Hubo un error!');
                             }
                         },
                         error: function (e)
