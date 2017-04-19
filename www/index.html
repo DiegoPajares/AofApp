@@ -156,7 +156,7 @@
                 $('#frmLogin').on('submit', (function (e) {
                     e.preventDefault();
                     $.ajax({
-                        url: "http://www.pycsolutions.com/aofintranet/Appmovil/Login?dni=11111111&clave=1",
+                        url: "http://www.pycsolutions.com/aofintranet/Appmovil/Login",
                         type: "GET",
                         dataType: 'json',
                         data: new FormData(this),
@@ -169,7 +169,7 @@
                         },
                         success: function (data)
                         {
-                            console.log(data);
+//                            console.log(data);
                             $("#txtNombreUsuario").text(data.nombres)
                             $$("#btnLoginClose").click();
                         },

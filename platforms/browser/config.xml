@@ -8,10 +8,10 @@
     </feature>
     <name>AofApp</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Intranet móvil para la empresa AOF.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="contacto@pycsolutions.com" href="http://www.pycsolutions.com">
+        PyC Solutions
     </author>
     <content src="index.html" />
     <access origin="*" />
