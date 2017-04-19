@@ -168,9 +168,9 @@
 //                            $.LoadingOverlay("show");
                         },
                         success: function (data)
-                        {
-                            if (data != 0) {
-                                console.log(data);
+                        {                            
+                            if (data != 0 || data != null) {
+//                                console.log(data);
                                 $("#txtNombreUsuario").text(data.nombres)
                                 $$("#btnLoginClose").click();
                             }else{
