@@ -130,7 +130,10 @@
             </div>
         </div>
 
-
+        <script type="text/javascript">
+            var login = 0;
+            var idUsuario = 0;
+        </script>
         <script type="text/javascript" src="cordova.js"></script>
 
         <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
@@ -143,7 +146,6 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
 
-            var login = 0;
             var myApp = new Framework7();
             var $$ = Dom7;
             app.initialize();
@@ -170,9 +172,11 @@
                         },
                         success: function (data)
                         {
+//                            console.log(data);
                             if (data != null) {
                                 $("#txtNombreUsuario").text(data.nombres)
                                 $$("#btnLoginClose").click();
+                                idUsuario = data.trabajador_id;
                             } else {
                                 myApp.alert('Usuario o contraseña incorrectos', 'Hubo un error!');
                             }
